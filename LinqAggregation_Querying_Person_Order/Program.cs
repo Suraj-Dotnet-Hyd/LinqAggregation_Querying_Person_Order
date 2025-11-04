@@ -17,7 +17,7 @@ namespace LinqAggregation_Querying_Person_Order
             new Person { Id = 4, Name = "Diana", Age = 40, Email = "diana@example.com" }
         };
 
-
+        
        static List<Order> orders = new List<Order>
         {
             new Order { OrderId = 1, PersonId = 1, Amount = 100, OrderDate = new DateTime(2025, 1, 15) },
@@ -30,23 +30,10 @@ namespace LinqAggregation_Querying_Person_Order
         {
           
 
-            while (true)
-            {
-                //Console.WriteLine("1: Display Total Orders and sum of Orders amount of each person");
-                //Console.WriteLine("");
-                Console.WriteLine("\n========= LINQ Operations Menu =========");
-                Console.WriteLine("1: Aggregation Operations");
-                Console.WriteLine("2: Element Operators");
-                Console.WriteLine("3: Quantifier Operators");
-                Console.WriteLine("4: Collection Conversion");
-                Console.WriteLine("5: Exit");
-                Console.Write("Enter your choice: ");
+         
+              
 
-                string choice = Console.ReadLine();
-
-                switch (choice)
-                {
-                    case "1":
+                
                         Console.WriteLine("\n-- Aggregation Operations --");
                         Console.WriteLine("DisplayTotalOrdersAndSum");
                        
@@ -58,9 +45,9 @@ namespace LinqAggregation_Querying_Person_Order
                         Console.WriteLine("--------------");
                         Console.WriteLine("DisplayMinMaxAvgOrder");
                         DisplayMinMaxAvgOrder();
-                        break;
+                      
 
-                    case "2":
+                    
                         Console.WriteLine("\n-- Element Operators --");
                         Console.WriteLine(" FindOrderOnSpecificDate");
                         
@@ -68,9 +55,7 @@ namespace LinqAggregation_Querying_Person_Order
                         Console.WriteLine("--------------");
                         Console.WriteLine(" FindFirstOrderGreaterThan150");
                         FindFirstOrderGreaterThan150();
-                        break;
-
-                    case "3":
+                       
                         Console.WriteLine("\n-- Quantifier Operators --");
                         Console.WriteLine(" CheckAllPeopleHaveOrders");
                         
@@ -78,9 +63,7 @@ namespace LinqAggregation_Querying_Person_Order
                         Console.WriteLine("--------------");
                         Console.WriteLine("CheckAnyOrderGreaterThan250");
                         CheckAnyOrderGreaterThan250();
-                        break;
-
-                    case "4":
+                       
                         Console.WriteLine("\n-- Collection Conversion --");
                         Console.WriteLine("ConvertOrdersToDictionary");
                         
@@ -88,18 +71,18 @@ namespace LinqAggregation_Querying_Person_Order
                         Console.WriteLine("--------------");
                         Console.WriteLine(" DisplayNumberOfOrdersPerPerson");
                         DisplayNumberOfOrdersPerPerson();
-                        break;
+                       
 
                    
 
-                    default:
-                        Console.WriteLine("Invalid choice. Please try again.");
-                        break;
-                }
+                  
+                      
+                      
+                
             }
 
-        }
-        // -------- Aggregation Operations --------
+     
+       
         static void DisplayTotalOrdersAndSum() {
             var result = people.GroupJoin(
             orders,
@@ -121,20 +104,7 @@ namespace LinqAggregation_Querying_Person_Order
         }
         static void CalculateAverageForOlderThan30()
         {
-            //var results = from p in people
-            //              where p.Age > 30
-            //              join o in orders on p.Id equals o.PersonId
-            //              group o by p.Name into g
-            //              select new
-            //              {
-            //                  Name = g.Key,
-            //                  AverageAmount = g.Average(x => x.Amount)
-            //              };
-
-            //Console.WriteLine("\nAverage order amount for people older than 30:");
-            //foreach (var item in results)
-            //    Console.WriteLine($"{item.Name} => Average Order Amount: {item.AverageAmount:F2}");
-
+           
             var avg = people
            .Where(p => p.Age > 30)
            .Join(orders, p => p.Id, o => o.PersonId, (p, o) => o.Amount)
@@ -160,7 +130,7 @@ namespace LinqAggregation_Querying_Person_Order
             
         }
 
-        // -------- Element Operators --------
+   
         static void FindOrderOnSpecificDate() {
             var order = orders.Find(o => o.OrderDate == new DateTime(2025, 1, 15));
             Console.WriteLine("Order Id : "+order.OrderId+" Order Amount : "+order.Amount);
@@ -171,7 +141,7 @@ namespace LinqAggregation_Querying_Person_Order
 
         }
 
-        // -------- Quantifier Operators --------
+
         static void CheckAllPeopleHaveOrders() {
             var isPlacedOrder = people.GroupJoin(orders,
                 p => p.Id,
@@ -204,7 +174,6 @@ namespace LinqAggregation_Querying_Person_Order
             }
         }
 
-        // -------- Collection Conversion --------
         static void ConvertOrdersToDictionary() {
             var dict = people.GroupJoin(
                 orders,
